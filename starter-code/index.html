@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | FX Checker</title>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-container">
+      <a href="/" class="logo-link">
+        <img src="assets/images/logo.svg" alt="FX Checker Logo">
+      </a>
+      <p class="currency-status">
+        <span id="dynamic-number"></span>Currencies &middot; EOD &middot; ECB data 
+      </p>
+    </div>
+  </header>
+  <img src="assets/images/ " alt="">
+  <main class="main">
+    <section class="ticker-wrap" id="live-markets" aria-label="Live Markets">
+      <div class="ticker-title">&middot; Live markets</div>
+      <div class="ticker-track" id="ticker-shelf"></div>
+    </section>
+
+    <section class="converter-section">
+      <h2>Check the Rate</h2>
+      
+      <form class="converter-card" action="#">
+        <div class="converter-inputs">
+          
+          <div class="input-group">
+            <label for="send-amount">Send</label>
+            <div class="input-control-wrapper">
+              <input id="send-amount" value="1000" placeholder="0.00" inputmode="numeric" pattern="[0-9]*">
+              <div class="currency-select" tabindex="0" role="combobox" aria-expanded="false" aria-label="country">
+                <div class="selected-option" id="selected-option">
+                    <div id="send-images"></div> 
+                    <span id="send-currency-code">AUD</span>
+                    <img src="assets/images/icon-chevron-down.svg" alt="">
+                </div>
+                <ul class="option-list" id="send-list"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="swap">
+            <button type="button" class="btn-swap" aria-label="Swap currencies" id="swap-btn">
+              <img src="assets/images/icon-exchange.svg" alt="Swap">
+            </button>
+          </div>
+
+          <div class="input-group">
+            <label for="receive-amount">Receive</label>
+            <div class="input-control-wrapper">
+              <input id="receive-amount" value="853.02" readonly inputmode="numeric" pattern="[0-9]*"> 
+              <div class="currency-select" tabindex="0" role="combobox" aria-expanded="false" aria-label="country">
+                <div class="selected-option" id="receive-option">
+                  <div id="receive-images"></div>
+                  <span id="receive-currency-code">BRL</span>
+                  <img src="assets/images/icon-chevron-down.svg" alt="">
+                </div>
+                <ul class="option-list" id="receive-list"></ul>
+              </div>
+            </div>
+          </div>
+
+        </div> <div class="converter-actions-row">
+          <div class="rate-info">
+              <p class="rate-text" id="rate-text">1 AUD = 3.6196 BRL</p>
+          </div>
+          <div class="dotted-line"></div>
+          <div class="action-buttons">
+            <button type="button" class="btn btn-secondary btn-favorite" id="fav-btn">
+              <img src="assets/images/icon-star.svg" alt="stars" id="fav-img">
+              <span id="fav-span">Favorite</span>
+            </button>
+            <button type="submit" class="btn btn-primary btn-log">
+              <span>Log Conversion</span>
+            </button>
+          </div>
+        </div>  
+      </form>
+    </section>
+
+    <div>
+      <div class="dashboard-panels">
+        <section id="panel-history" class="view-panel" role="tabpanel">
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Open</span>
+              <p class="metric-value" id="metric-open">0.8516</p>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Last</span>
+              <p class="metric-value" id="metric-last">0.8530</p>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Change</span>
+              <p class="metric-value positive" id="metric-change">+0.0014</p>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">% Change</span>
+              <p class="metric-value positive" id="metric-pct">+0.16%</p>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3 class="chart-title" id="active-pair-title">USD/EUR</h3>
+              <div class="chart-filters">
+                <button type="button" class="filter-btn">1D</button>
+                <button type="button" class="filter-btn active">1W</button>
+                <button type="button" class="filter-btn">1M</button>
+                <button type="button" class="filter-btn">1Y</button>
+              </div>
+            </div>
+            <canvas id="historyChart"></canvas>
+          </div>
+        </section>
+
+        <section id="panel-compare" class="view-panel hidden" role="tabpanel"></section>
+        <section id="panel-favorites" class="view-panel hidden" role="tabpanel"></section>
+        <section id="panel-log" class="view-panel hidden" role="tabpanel"></section>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
