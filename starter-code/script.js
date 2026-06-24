@@ -107,7 +107,10 @@ const displayCurrency = async ()=>{
             spans.innerHTML = `<img src="${itm.image}" alt="${itm.name} flag" width="24">`;
             sendCurrencyDropdown.textContent = itm.name;
             sendListElement.classList.remove("show");
+            
+           
             calculateConversion();
+            fetchData();
         });
         sendListElement.appendChild(liSend);
 
@@ -119,6 +122,8 @@ const displayCurrency = async ()=>{
             receiveCurrencyDropdown.textContent = itm.name;
             receiveListElement.classList.remove("show");
             calculateConversion();
+            setupFilter();
+            fetchData();
         });
         receiveListElement.appendChild(liReceive);
         })
@@ -128,10 +133,13 @@ const displayCurrency = async ()=>{
             
         });
         receiveOption.addEventListener('click',()=>{
-            receiveListElement.classList.toggle("show")
+            receiveListElement.classList.toggle("show");
+            setupFilter();
+            fetchData();
         })
         console.log(list);
-    
+        setupFilter();
+        fetchData();
     } 
     catch (error) {
         console.log("The error is ", error);
@@ -225,3 +233,138 @@ const liveTicker = async () =>{
     
 }
 liveTicker();
+
+
+const filterChartButtons = document.querySelectorAll(".chart-filters .filter-btn");
+const opened = document.getElementById("metric-open");
+const last = document.getElementById("metric-last");
+const changed = document.getElementById("metric-change");
+const perChange = document.getElementById("metric-perchange");
+const canvasElement = document.getElementById("charts");
+let activeTime = "1W";
+let chartInstance = null;
+
+
+function timeFrameFunc(timeFrame){
+    const start = new Date();
+    if(timeFrame === "1D"){start.setDate(start.getDate()-1)}
+    else if(timeFrame === "1W"){start.setDate(start.getDate()-7)}
+    else if(timeFrame === "1M"){start.setMonth(start.getMonth()-1)}
+    else { start.setFullYear(start.getFullYear() - 1)};
+    return start.toISOString().split('T')[0];
+}
+
+
+const fetchData = async ()=>{
+    const today = new Date().toISOString().split('T')[0];
+    const baseCurrency = sendCurrencyDropdown.textContent.trim();
+    const targetCurrency = receiveCurrencyDropdown.textContent.trim();
+    if (baseCurrency === targetCurrency) return;
+    try{
+        const today = new Date().toISOString().split('T')[0];
+        const startStr = timeFrameFunc(activeTime);
+        const response = await fetch(`https://api.frankfurter.dev/v1/${startStr}..${today}?base=${baseCurrency}&symbols=${targetCurrency}`);
+        const data = await response.json();
+        console.log(data);
+        if (!data.rates || Object.keys(data.rates).length === 0) return;
+        const sortedDates = Object.keys(data.rates).sort();
+        const historyData = sortedDates.map(itm=>({
+            date: itm,
+            rate: data.rates[itm][targetCurrency]
+        }));
+        const firstEntry = historyData[0];
+        const lastEntry  = historyData[historyData.length-1];
+        const openPrice = firstEntry.rate;
+        const lastPrice = lastEntry.rate;
+        const absoluteChange = lastPrice - openPrice;
+        const percentageChange = (absoluteChange / openPrice) * 100;
+        const isPositive = absoluteChange>=0;
+        const arrow = isPositive ? '▲' : '▼';
+        opened.innerHTML = openPrice.toFixed(4);
+        last.innerHTML = lastPrice.toFixed(4);
+        changed.innerHTML = arrow + Math.abs(absoluteChange).toFixed(4);
+        perChange.innerHTML  = arrow + Math.abs(percentageChange).toFixed(2) + "%";
+        if(absoluteChange>=0){
+            changed.style.color = '#a3e635';
+            perChange.style.color = '#a3e635';
+        }else{
+            changed.style.color = '#ef4444';
+            perChange.style.color = '#ef4444';
+        }
+        renderChart(historyData,targetCurrency);
+    }
+    catch(error){
+        console.log("The error is",error);
+    }    
+}
+
+
+
+
+// function filter(){
+//     filterChart.forEach(itm =>{
+//         filterBtn.classList.remove("active");
+//         if(filterBtn.classList.contains("active")){
+//             console.log("button is clicked")
+//             activeTime = filterBtn.textContent;
+//             filterBtn.classList.add("active");
+//             fetchData(activeTime,currentTime);
+//         }else{
+//             filterBtn.classList.remove("active");
+//         }
+//         currencyHistory.base = selectionSend;
+//         currencyHistory.target = receiveOption;
+//         fetchData(activeTime,currentTime);
+//     })
+// }
+// filter();
+
+
+
+function renderChart(historyData,currencySymbol){
+    const labelDate = historyData.map(itm => itm.date);
+    const numericalRates = historyData.map(itm=>itm.rate);
+    if (chartInstance !== null){
+        chartInstance.destroy();
+    }
+    if(typeof Chart !== 'undefined'){
+        chartInstance = new Chart(canvasElement, {
+        type: 'line',
+        data: {
+            labels: labelDate,
+            datasets: [{
+                data: numericalRates,
+                borderColor: 'limeGreen',
+                tension: 0.4,
+                pointRadius: 0,               // Hides the circular dots on data intersections
+                pointHoverRadius: 4,
+                fill: true, // This turns it into an area chart!
+                backgroundColor: 'Green'
+            }]
+        },
+        options: {
+            responsive:true,
+            maintainAspectRatio: false,
+            plugins:{legend:{display:false}},
+            scales: {
+                x:{grid: {display:false}},
+                y:{grid: {color: 'rgba(255,255,255,0.05)'}}
+            }
+            // responsive configuration, remove grid lines, hide legends, etc.
+        }
+     })
+    }
+        
+}
+
+
+function setupFilter(){
+    filterChartButtons.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            filterChartButtons.forEach(b =>b.classList.remove("active"));
+            btn.classList.add("active");
+            activeTime = btn.textContent.trim();
+            fetchData();
+        })
+    })
+}

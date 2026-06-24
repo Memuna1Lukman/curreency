@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Frontend Mentor | FX Checker</title>
 </head>
 <body>
@@ -85,48 +86,62 @@
         </div>  
       </form>
     </section>
+<!-- =========================THE LINKS FOR DASHBOARD================================ -->
+   <section class="panel-section">
+    <nav class="dashboard-tabs" id="dashboard">
+      <button type="button" class="tab-btn active" data-target="#history-panel">History</button>
+      <button type="button" class="tab-btn" data-target="#compare-panel">Compare</button>
+      <button type="button" class="tab-btn" data-target="#favorite-panel">Favorites</button>
+      <button type="button" class="tab-btn" data-target="#log-panel">Log</button> 
+    </nav>
 
-    <div>
-      <div class="dashboard-panels">
-        <section id="panel-history" class="view-panel" role="tabpanel">
-          <div class="metrics-grid">
-            <div class="metric-card">
-              <span class="metric-label">Open</span>
-              <p class="metric-value" id="metric-open">0.8516</p>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">Last</span>
-              <p class="metric-value" id="metric-last">0.8530</p>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">Change</span>
-              <p class="metric-value positive" id="metric-change">+0.0014</p>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">% Change</span>
-              <p class="metric-value positive" id="metric-pct">+0.16%</p>
-            </div>
-          </div>
-
-          <div class="chart-container">
-            <div class="chart-header">
-              <h3 class="chart-title" id="active-pair-title">USD/EUR</h3>
-              <div class="chart-filters">
-                <button type="button" class="filter-btn">1D</button>
-                <button type="button" class="filter-btn active">1W</button>
-                <button type="button" class="filter-btn">1M</button>
-                <button type="button" class="filter-btn">1Y</button>
-              </div>
-            </div>
-            <canvas id="historyChart"></canvas>
-          </div>
-        </section>
-
-        <section id="panel-compare" class="view-panel hidden" role="tabpanel"></section>
-        <section id="panel-favorites" class="view-panel hidden" role="tabpanel"></section>
-        <section id="panel-log" class="view-panel hidden" role="tabpanel"></section>
+  <div id="all-panels">
+    
+    <div id="history-panel" class="panel active">
+      
+      <div class="history-top-row">
+        <div class="metric-grid">
+          <section class="metric-card">
+            <span class="metric-label">Open</span>
+            <p class="metric-value" id="metric-open">0.8516</p>
+          </section>
+          <section class="metric-card">
+            <span class="metric-label">Last</span>
+            <p class="metric-value" id="metric-last">0.856</p>
+          </section>
+          <section class="metric-card">
+            <span class="metric-label">Change</span>
+            <p class="metric-value" id="metric-change" class="positive">+0.0014</p>
+          </section>
+          <section class="metric-card">
+            <span class="metric-label">% Change</span>
+            <p class="metric-value" id="metric-perchange" class="positive">+0.16%</p>
+          </section>
+          <section class="chart-filters">
+            <div class="filter-btn">1D</div>
+            <div class="filter-btn active">1W</div>
+            <div class="filter-btn">1M</div>
+            <div class="filter-btn">1Y</div>
+          </section>
+          
+        </div>
       </div>
+
+      <div id="canvas" class="canvas">
+        <canvas id="charts"></canvas>
+      </div>
+      
     </div>
+
+    <div id="compare-panel" class="panel"></div>
+    <div id="favorite-panel" class="panel">
+      <section id="fav-section"></section>
+    </div>
+    <div id="log-panel" class="panel"></div>
+
+  </div>
+</section>
+    
   </main>
   <script src="script.js"></script>
 </body>

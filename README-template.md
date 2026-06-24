@@ -44,7 +44,6 @@ Your users should be able to:
 - See a ticker of currency pairs, each with its current rate and 24-hour change (up or down)
 
 #### Rate history
-
 - View a line and area chart of the active pair's rate over time
 - Switch the chart range between 1D, 1W, 1M, 3M, 1Y, and 5Y
 - See the open, last, absolute change, and percentage change for the selected range
@@ -167,37 +166,41 @@ This is where you can give a hat tip to anyone who helped you out on this projec
 
 
 
+<!-- <div>
+      <div class="dashboard-panels">
+        <section id="panel-history" class="view-panel" role="tabpanel">
+          <div class="metrics-grid">
+            <div class="metric-card"> -->
+              
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Last</span>
+              <p class="metric-value" id="metric-last">0.8530</p>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Change</span>
+              <p class="metric-value positive" id="metric-change">+0.0014</p>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">% Change</span>
+              <p class="metric-value positive" id="metric-pct">+0.16%</p>
+            </div>
+          </div>
 
-/* Hide horizontal scrollbar and style the container */
-.ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    background: #111;
-    color: #fff;
-    padding: 10px 0;
-    font-family: sans-serif;
-}
+          <div class="chart-container">
+            <section class="chart-filters">
+              <div class="filter-btn">1D</div>
+              <div class="filter-btn active">1W</div>
+              <div class="filter-btn">1M</div>
+              <div class="filter-btn">1Y</div>
+            </section>
+          </div>
+            <canvas id="historyChart"></canvas>
+        </section>    
+      </div>
+    
 
-/* The horizontal scrolling track */
-.ticker {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: ticker-move 25s linear infinite;
-}
-
-/* Individual currency items */
-.ticker__item {
-    display: inline-block;
-    padding: 0 2rem;
-    font-size: 1.1rem;
-}
-
-.up { color: #4caf50; }   /* Green for positive change */
-.down { color: #f44336; } /* Red for negative change */
-
-/* Keyframes for sliding from right to left */
-@keyframes ticker-move {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
-}
+        <section id="panel-compare" class="view-panel hidden" role="tabpanel"></section>
+        <section id="panel-favorites" class="view-panel hidden" role="tabpanel"></section>
+        <section id="panel-log" class="view-panel hidden" role="tabpanel"></section>
+      </div>
