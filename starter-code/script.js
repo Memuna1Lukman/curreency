@@ -7,6 +7,30 @@ const receiveAmountInput = document.getElementById("receive-amount");
 const sendCurrencyDropdown = document.getElementById("send-currency-code");
 const receiveCurrencyDropdown = document.getElementById("receive-currency-code");
 const rateTextDisplay = document.getElementById("rate-text");
+
+
+
+
+const selectionSend = document.getElementById("selected-option");
+const spans = document.getElementById("send-images");
+const spanss = document.getElementById("receive-images");
+const sendListElement = document.getElementById("send-list");
+const receiveListElement = document.getElementById("receive-list");
+const receiveOption = document.getElementById("receive-option");
+
+
+const filterChartButtons = document.querySelectorAll(".chart-filters .filter-btn");
+const opened = document.getElementById("metric-open");
+const last = document.getElementById("metric-last");
+const changed = document.getElementById("metric-change");
+const perChange = document.getElementById("metric-perchange");
+const canvasElement = document.getElementById("charts");
+
+const comparePanel = document.getElementById("compare-panel");
+
+const swapBtn = document.getElementById("swap1");
+const swapBtn1 = document.getElementById("swap2");
+
 async function getCurrencyRate(base,target){
     if(base===target) return 1;
     const api = "https://api.frankfurter.dev";
@@ -14,7 +38,7 @@ async function getCurrencyRate(base,target){
     const data = await response.json();
     return data.rates[target];
 }
-getCurrencyRate('USD','EUR').then(rate => console.log(`1 USD = ${rate} EUR`));
+// getCurrencyRate('USD','EUR').then(rate => console.log(`1 USD = ${rate} EUR`));
 
 
 
@@ -41,12 +65,7 @@ async function calculateConversion() {
 sendAmountInput.addEventListener('input',calculateConversion);
 
 
-const selectionSend = document.getElementById("selected-option");
-const spans = document.getElementById("send-images");
-const spanss = document.getElementById("receive-images");
-const sendListElement = document.getElementById("send-list");
-const receiveListElement = document.getElementById("receive-list");
-const receiveOption = document.getElementById("receive-option");
+
 
 const displayCurrency = async ()=>{
     try {
@@ -138,8 +157,7 @@ function swap(){
 }
 
 
-const swapBtn = document.getElementById("swap1");
-const swapBtn1 = document.getElementById("swap2");
+
 
 swapBtn.addEventListener('click',()=>{
     swap();
@@ -147,11 +165,6 @@ swapBtn.addEventListener('click',()=>{
 swapBtn1.addEventListener('click',()=>{
     swap();
 })
-// swapBtn.forEach(btn=>{
-//     btn.addEventListener('click',()=>{
-        
-//     3});
-// })
 
 
 
@@ -208,12 +221,7 @@ const liveTicker = async () =>{
 liveTicker();
 
 
-const filterChartButtons = document.querySelectorAll(".chart-filters .filter-btn");
-const opened = document.getElementById("metric-open");
-const last = document.getElementById("metric-last");
-const changed = document.getElementById("metric-change");
-const perChange = document.getElementById("metric-perchange");
-const canvasElement = document.getElementById("charts");
+
 let activeTime = "1W";
 let chartInstance = null;
 
@@ -321,7 +329,7 @@ function renderChart(historyData,currencySymbol){
 
 
 
-const comparePanel = document.getElementById("compare-panel");
+
 const favPairs = [];
 function handlePinFav(){
     const base = sendCurrencyDropdown.textContent.trim();
