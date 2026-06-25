@@ -30,6 +30,8 @@ body{
     padding-right: 1rem;
 }
 
+
+
 /* =========================== SECTION FOR LIVE MARKETS =========================== */
 .ticker-wrap {
     display: flex;
@@ -70,6 +72,8 @@ body{
     gap: 10px;          
     font-size: 1.1rem;
 }
+
+
 
 /* Color States for JavaScript injection */
 .ticker-item.up {
@@ -286,7 +290,10 @@ form{
     color: white;
     border-bottom: 2px solid #a3e635;
 }
-
+.history-top-row{
+    display: flex;
+    justify-content: space-between;
+}
 .dashboard-tabs{
     margin-bottom: 0.85rem;
     margin-top: 2rem;
@@ -311,7 +318,8 @@ form{
 .chart-filters{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
+    flex-direction: row;
     gap: 0.5rem;
     background-color: #111111;
     padding: 0.25rem;
@@ -375,4 +383,139 @@ form{
     flex-direction: column;
     width: 100%;
     gap: 1.5rem;
+}
+
+
+.btnSwap{
+    display: none;
+}
+
+@media (max-width: 700px) {
+    body{
+        width: 100%;
+        min-height: 100vh;
+    }
+    .converter-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 1rem; /* Adds safe spacing on the sides of the screen */
+    }
+
+    .converter-section h2 {
+        font-size: 1.2rem;
+        margin-left: 5%; /* Brings the title closer to the edge on mobile */
+    }
+
+    form {
+        width: 100%; /* Allows the form to take full width of its container safely */
+        padding: 0;
+    }
+
+    .converter-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .converter-inputs {
+        display: grid;
+        grid-template-columns: 1fr; /* Changes grid from 3-columns to 1-column stack */
+        gap: 1rem;
+        width: 100%; /* FIXED: Changed from 700px to 100% */
+    }
+
+    .input-group {
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* FIXED: Keeps label stacked on top of input */
+        justify-content: center;
+        gap: 0.75rem;
+        height: auto; /* Allows content to define height safely on mobile */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+    }
+
+    /* Target the wrapper inside mobile so inputs look uniform */
+    .input-control-wrapper {
+        width: 100%;
+    }
+
+    /* History Top Row Grid stacking for mobile */
+    .history-top-row {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Splits stats into a clean 2x2 grid */
+        gap: 0.5rem;
+    }
+
+    .chart-filters {
+        justify-content: center; /* Centers filters on small screens */
+        width: 100%;
+    }
+
+    /* Existing mobile updates you made */
+    .btnSwap {
+        padding: 0.75rem;
+        background: transparent;
+        border-radius: 10px;
+        border: 1px solid white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem auto; /* Centers the vertical swap icon */
+    }
+
+    .btn-swap {
+        display: none;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header {
+        display: flex;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .currency-status {
+        font-size: 11px;
+        padding-left: 1rem;
+        text-align: left;
+    }
+    .ticker-title {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .ticker-item {
+        font-size: 0.875rem;
+    }
+    .converter-actions-row{
+        display: block;
+    }
+    .rate-info{
+        padding-bottom: 1rem;
+    }
+    .tab-btn{
+        font-size: 0.82rem;
+    }
+    .panel-section{
+        margin-bottom: 2rem;
+    }
 }

@@ -13,14 +13,13 @@
   <header class="header">
     <div class="header-container">
       <a href="/" class="logo-link">
-        <img src="assets/images/logo.svg" alt="FX Checker Logo">
+        <img src="assets/images/logo.svg" alt="FX Checker Logo" class="logo">
       </a>
       <p class="currency-status">
         <span id="dynamic-number"></span>Currencies &middot; EOD &middot; ECB data 
       </p>
     </div>
   </header>
-  <img src="assets/images/ " alt="">
   <main class="main">
     <section class="ticker-wrap" id="live-markets" aria-label="Live Markets">
       <div class="ticker-title">&middot; Live markets</div>
@@ -49,10 +48,14 @@
           </div>
 
           <div class="swap">
-            <button type="button" class="btn-swap" aria-label="Swap currencies" id="swap-btn">
+            <button type="button" class="btn-swap" aria-label="Swap currencies" id="swap1">
               <img src="assets/images/icon-exchange.svg" alt="Swap">
             </button>
+            <button type="button" class="btnSwap" aria-label="Swap currencies" id="swap2">
+              <img src="assets/images/icon-exchange-vertical.svg" alt="Swap">
+            </button>
           </div>
+          
 
           <div class="input-group">
             <label for="receive-amount">Receive</label>
@@ -73,7 +76,6 @@
           <div class="rate-info">
               <p class="rate-text" id="rate-text">1 AUD = 3.6196 BRL</p>
           </div>
-          <div class="dotted-line"></div>
           <div class="action-buttons">
             <button type="button" class="btn btn-secondary btn-favorite" id="fav-btn">
               <img src="assets/images/icon-star.svg" alt="stars" id="fav-img">
@@ -117,14 +119,15 @@
             <span class="metric-label">% Change</span>
             <p class="metric-value" id="metric-perchange" class="positive">+0.16%</p>
           </section>
-          <section class="chart-filters">
+          
+          
+        </div>
+        <section class="chart-filters">
             <div class="filter-btn">1D</div>
             <div class="filter-btn active">1W</div>
             <div class="filter-btn">1M</div>
             <div class="filter-btn">1Y</div>
-          </section>
-          
-        </div>
+        </section>
       </div>
 
       <div id="canvas" class="canvas">
@@ -133,7 +136,9 @@
       
     </div>
 
-    <div id="compare-panel" class="panel"></div>
+    <div id="compare-panel" class="panel">
+      <p>This is a div</p>
+    </div>
     <div id="favorite-panel" class="panel">
       <section id="fav-section"></section>
     </div>
